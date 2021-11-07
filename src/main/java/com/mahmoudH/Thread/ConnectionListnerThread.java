@@ -1,23 +1,21 @@
-package com.mahmoudH;
+package com.mahmoudH.Thread;
 
 import com.mahmoudH.Exception.HTTPConfigrationException;
-import com.mahmoudH.configreations.Configration;
+import com.mahmoudH.configreations.Configuration;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ConnectionListnerThread extends Thread{
-    Configration configration;
-    public ConnectionListnerThread(Configration c) {
-        this.configration=c;
+    Configuration configuration;
+    public ConnectionListnerThread(Configuration c) {
+        this.configuration =c;
     }
 
     @Override
     public void run() {
         try {
-            ServerSocket serverSocket=new ServerSocket(configration.getPort());
+            ServerSocket serverSocket=new ServerSocket(configuration.getPort());
             while(true){
                 Socket s=serverSocket.accept();
                 new HttpHandlerThread(s).start();

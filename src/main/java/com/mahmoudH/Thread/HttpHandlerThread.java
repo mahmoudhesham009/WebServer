@@ -1,16 +1,13 @@
-package com.mahmoudH;
+package com.mahmoudH.Thread;
 
 import com.mahmoudH.Exception.HTTPConfigrationException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class HttpHandlerThread extends Thread {
     Socket socket;
-    final String CRLF = "\r\n"; // 13, 10
+    final String CRLF = "\r\n";
 
 
     public HttpHandlerThread(Socket s) {
@@ -22,13 +19,28 @@ public class HttpHandlerThread extends Thread {
         try{
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder sb=new StringBuilder();
 
 
-            String html= getHtml("src/main/resources/index.html");
+            String i=in.readLine();
+            String s[]=i.split(" ");
+            while((i=in.readLine())!=null&&i.length()!=0){
+                System.out.println(i);
+                sb.append(i);
+            }
+
+            String html;
+            try{
+                html= getHtml("src/main/resources/static"+s[1]+".html");
+            }catch(Exception e){
+                html= getHtml("src/main/resources/static/Error.html");
+            }
+
+
 
             String httpResponse="HTTP/1.1 200 OK"+CRLF
-                    +"Content-Length: " + html.getBytes().length + CRLF + // HEADER
+                    +"Content-Length: " + html.getBytes().length + CRLF +
                     CRLF +
                     html +
                     CRLF + CRLF;;

@@ -1,13 +1,14 @@
 package com.mahmoudH;
 
-import com.mahmoudH.configreations.Configration;
-import com.mahmoudH.configreations.ConfigrationManager;
+import com.mahmoudH.Thread.*;
+import com.mahmoudH.configreations.Configuration;
+import com.mahmoudH.configreations.ConfigurationManager;
 
 
 public class Main {
     public static void main(String[] args){
-        Configration configration=ConfigrationManager.getConfigration();
-        System.out.println(configration.getPort()+"  "+configration.getWebroot());
-        new ConnectionListnerThread(configration).start();
+        Configuration configuration = ConfigurationManager.getConfigration();
+        System.out.println(configuration.getPort()+"  "+ configuration.getWebroot());
+        new ConnectionListnerThread(configuration).start();
     }
 }

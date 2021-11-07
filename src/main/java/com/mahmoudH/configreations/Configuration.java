@@ -1,6 +1,7 @@
 package com.mahmoudH.configreations;
 
-public class Configration {
+
+public class Configuration {
     private int port;
     private String webroot;
 
